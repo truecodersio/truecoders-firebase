@@ -3,7 +3,7 @@ import * as admin from 'firebase-admin'
 
 admin.initializeApp(functions.config().firebase)
 
-exports.onCreateUser = functions.auth.user().onCreate(async event => {
+exports.onCreateUser = functions.auth.user().onCreate(event => {
   const user = event.data
   const userObject = {
     displayName: user.displayName,
@@ -12,15 +12,15 @@ exports.onCreateUser = functions.auth.user().onCreate(async event => {
     createdAt: user.metadata.creationTime,
   }
 
-  return await admin
+  return admin
     .database()
     .ref(`users/${user.uid}`)
     .set(userObject)
 })
 
-exports.onDeleteUser = functions.auth.user().onDelete(async event => {
+exports.onDeleteUser = functions.auth.user().onDelete(event => {
   const user = event.data
-  return await admin
+  return admin
     .database()
     .ref(`users/${user.uid}`)
     .remove()
