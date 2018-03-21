@@ -1,9 +1,6 @@
-path /users {
-  read() { isAuthenticated() }  
-
-  /{uid} is User {
-    write() { isCurrentUser(uid) }
-  }
+path /users/{uid} is User {
+  read() { isCurrentUser(uid) }
+  write() { isCurrentUser(uid) }
 }
 
 type User {
