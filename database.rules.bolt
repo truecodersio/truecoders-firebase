@@ -1,0 +1,18 @@
+path /users {
+  read() { isAuthenticated() }  
+
+  /{uid} is User {
+    write() { isCurrentUser(uid) }
+  }
+}
+
+type User {
+  firstName: String | Null,
+  lastName: String | Null,
+  email: String,
+  photoUrl: String | Null,
+  createdAt: String | Null,
+}
+
+isAuthenticated() { auth != null }
+isCurrentUser(uid) { auth != null && auth.uid == uid }
